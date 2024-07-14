@@ -8,5 +8,8 @@
     "test": "node --test test/*"
   },
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "ml-dataset-iris": "^1.2.1"
+  }
 }

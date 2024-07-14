@@ -34,11 +34,15 @@ export function createNDArray(lengths, fn) {
 /**
  * Generates an n-dimensional array (or matrix) of random numbers from a standard normal distribution.
  * @param  {...number} dims Dimensions of the matrix to generate.
- * @returns { Matrix|Vector } A matrix or vector filled with random numbers.
+ * @returns {Matrix|Vector} A matrix or vector filled with random numbers.
  */
 export function randn(...dims) {
     if (dims.length === 0) {
         return randnBm();  // Return a single random number if no dimensions provided
+    }
+    // Validate dimensions
+    if (dims.some(dim => dim <= 0 || !Number.isInteger(dim))) {
+        throw new Error("All dimensions must be positive integers.");
     }
     return createNDArray(dims, randnBm);
 }
