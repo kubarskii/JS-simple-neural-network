@@ -11,21 +11,19 @@ export default class DenseLayer extends BaseLayer {
                 new Vector(...Array.from({ length: inputSize }, () => Math.random())))
         );
         this.bias = new Vector(...Array.from({ length: outputSize }, () => Math.random()));
+        this.derivatives = [];
     }
 
     forward(input) {
-        if (!(input instanceof Vector)) {
-            throw new Error("Input must be a Vector.");
-        }
+        if (!(input instanceof Vector)) throw new Error("Input must be a Vector.")
         this.input = input;
-        const weightedInput = this.weights.data.map(row => row.dot(input));
-        this.output = new Vector(...weightedInput).add(this.bias);
+        this.output = this.weights.mul(this.input).add(this.bias);
         return this.output;
     }
 
     backward(outputGradient, learningRate) {
         if (!(outputGradient instanceof Vector)) {
-            throw new Error("Argument must be an instance of Vector");
+            throw new Error("outputGradient Argument must be an instance of Vector");
         }
         const weightsGradient = new Matrix(...this.weights.data.map((row, i) =>
             new Vector(...row.data.map((_, j) => outputGradient.data[i] * this.input.data[j]))

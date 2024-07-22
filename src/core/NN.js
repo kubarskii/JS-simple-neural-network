@@ -9,18 +9,16 @@ export default class NN {
     }
 
     forward(input) {
-        let activations = input;
+        let next = input;
         this.layerInputs = [input];
         for (let i = 0; i < this.layers.length; i++) {
-            const z = this.layers[i].forward(activations);
-            this.layerInputs.push(z);
+            next = this.layers[i].forward(next);
+            this.layerInputs.push(next);
             if (i < this.activations.length) {
-                activations = new Vector(...z.data.map(this.activations[i].func));
-            } else {
-                activations = new Vector(...z.data)
+                next = next.map(this.activations[i].func)
             }
         }
-        return activations;
+        return next;
     }
 
     backward(target, output, learningRate) {

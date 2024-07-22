@@ -1,7 +1,7 @@
 import { getDataset, getClasses, getCrossValidationSets, getClassesAsNumber, getNumbers } from 'ml-dataset-iris';
 import NN from './src/core/NN.js';
 import DenseLayer from './src/layers/denseLayer.js';
-import { mse } from './src/utils/loss.js'
+import { mse, msePrime } from './src/utils/loss.js'
 import { Matrix, Vector } from './src/utils/math.js';
 
 const indexOfLargestValue = (arr) => arr.reduce((maxIndex, currentValue, currentIndex, array) => currentValue > array[maxIndex] ? currentIndex : maxIndex, 0)

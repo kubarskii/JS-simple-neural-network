@@ -100,7 +100,6 @@ export class Vector extends Tensor {
     }
 
     transpose() {
-        // Convert a vector to a 1-column matrix
         return new Matrix(...this.data.map(val => new Vector(val)));
     }
 }
